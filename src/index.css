@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&family=Inter&family=Raleway&display=swap');
+
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	background-color: whitesmoke;
+	color: darkgray;
+	font-family: sans-serif;
+	font-size: 1rem;
+}
+
+:root {
+	--main-text-color: #7f7f7f;
+	--text-color: #1f1f1f;
+	--outline-color: #2a7a8a;
+	--hover-color: #9f9f9f;
+}
