@@ -2,12 +2,13 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './AddTodoForm.module.css';
 
-const AddTodoForm = (props) => {
+const AddTodoForm = ({ addNewTodo }) => {
 	const [text, setText] = useState('');
 
 	const handleFormSubmit = (e) => {
 		e.preventDefault();
 		if (text.trim() === '') return;
+		addNewTodo(text);
 		setText('');
 	};
 	return (
@@ -28,6 +29,8 @@ const AddTodoForm = (props) => {
 	);
 };
 
-AddTodoForm.propTypes = {};
+AddTodoForm.propTypes = {
+	addNewTodo: PropTypes.func,
+};
 
 export default AddTodoForm;
