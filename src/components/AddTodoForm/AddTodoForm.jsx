@@ -7,7 +7,7 @@ const AddTodoForm = (props) => {
 
 	const handleFormSubmit = (e) => {
 		e.preventDefault();
-		console.log('TODO TEXT:', text);
+		if (text.trim() === '') return;
 		setText('');
 	};
 	return (
