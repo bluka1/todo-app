@@ -1,14 +1,18 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Title, VisibilityToolbar, AddTodoForm, TodoList } from './components';
+import { addTodo, clearCompleted, removeTodo, toggleTodo } from './store/todoSlice';
 import { Todo } from './models/Todo';
 import { VISIBILITY_TYPES } from './utils/visibilityTypes';
 
 import styles from './App.module.css';
 
 export default function App() {
-  const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || []);
+  //const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || []);
   const [visibility, setVisibility] = useState(VISIBILITY_TYPES.ALL);
+  const todos = useSelector((state) => state.todos.todos);
+  const dispatch = useDispatch();
 
   const handleSetVisibility = (visibilityValue) => {
     setVisibility(visibilityValue);
@@ -16,33 +20,39 @@ export default function App() {
 
   const handleAddNewTodo = (text) => {
     const newTodo = new Todo(text);
+    /*
     setTodos((prevState) => {
       const newState = [...prevState, newTodo];
       localStorage.setItem('todos', JSON.stringify(newState));
       return newState;
     });
+    */
+    dispatch(addTodo(JSON.stringify(newTodo)));
   };
 
   const handleRemoveTodo = (id) => {
-    const newTodos = todos.filter((todo) => todo.id !== id);
+    /*const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos);
-    localStorage.setItem('todos', JSON.stringify(newTodos));
+    localStorage.setItem('todos', JSON.stringify(newTodos));*/
+    dispatch(removeTodo(id));
   };
 
   const handleToggleTodo = (id) => {
-    const newTodosState = [...todos];
+    /*const newTodosState = [...todos];
     const todo = newTodosState.find((todo) => todo.id === id);
     todo.done = !todo.done;
     setTodos(newTodosState);
-    localStorage.setItem('todos', JSON.stringify(newTodosState));
+    localStorage.setItem('todos', JSON.stringify(newTodosState));*/
+    dispatch(toggleTodo(id));
   };
 
   const clearCompletedTodos = () => {
-    setTodos((prevTodos) => {
+    /*setTodos((prevTodos) => {
       const newTodos = prevTodos.filter((todo) => !todo.done);
       localStorage.setItem('todos', JSON.stringify(newTodos));
       return newTodos;
-    });
+    });*/
+    dispatch(clearCompleted());
   };
 
   const todosToShow = () => {
