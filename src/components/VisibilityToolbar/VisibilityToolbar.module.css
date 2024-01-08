@@ -4,3 +4,8 @@
   margin: 3rem auto;
   width: fit-content;
 }
+
+label.activeButton {
+  background-color: var(--black-color);
+  color: #fff;
+}

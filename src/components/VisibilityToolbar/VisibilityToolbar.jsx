@@ -5,7 +5,12 @@ import styles from './VisibilityToolbar.module.css';
 
 const { ALL, ACTIVE, COMPLETED } = VISIBILITY_TYPES;
 
-const VisibilityToolbar = (props) => {
+const VisibilityToolbar = ({ visibility, handleSetVisibility }) => {
+  const getButtonStyle = (visibilityValue, value) => {
+    if (visibilityValue === value) return styles['activeButton'];
+    else return null;
+  };
+
   return (
     <ToggleButtonGroup
       type="radio"
@@ -13,19 +18,43 @@ const VisibilityToolbar = (props) => {
       defaultValue={ALL}
       className={styles['toggle-button-group']}
     >
-      <ToggleButton value={ALL} size="sm" className={'toggle-button'} onClick={() => {}}>
+      <ToggleButton
+        value={ALL}
+        size="sm"
+        className={`toggle-button ${getButtonStyle(visibility, ALL)}`}
+        onClick={() => {
+          handleSetVisibility(ALL);
+        }}
+      >
         All
       </ToggleButton>
-      <ToggleButton value={ACTIVE} size="sm" className={'toggle-button'}>
+      <ToggleButton
+        value={ACTIVE}
+        size="sm"
+        className={`toggle-button ${getButtonStyle(visibility, ACTIVE)}`}
+        onClick={() => {
+          handleSetVisibility(ACTIVE);
+        }}
+      >
         Active
       </ToggleButton>
-      <ToggleButton value={COMPLETED} size="sm" className={'toggle-button'}>
+      <ToggleButton
+        value={COMPLETED}
+        size="sm"
+        className={`toggle-button ${getButtonStyle(visibility, COMPLETED)}`}
+        onClick={() => {
+          handleSetVisibility(COMPLETED);
+        }}
+      >
         Completed
       </ToggleButton>
     </ToggleButtonGroup>
   );
 };
 
-VisibilityToolbar.propTypes = {};
+VisibilityToolbar.propTypes = {
+  visibility: PropTypes.string,
+  handleSetVisibility: PropTypes.func,
+};
 
 export default VisibilityToolbar;

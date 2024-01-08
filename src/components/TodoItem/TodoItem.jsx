@@ -7,7 +7,7 @@ const TodoItem = ({ todo, removeTodo, toggleTodo }) => {
   return (
     <li className={styles['todo-item']} id={todo.id}>
       <div className={styles['todo-item__wrapper']}>
-        <input type="checkbox" onChange={() => toggleTodo(todo.id)} />
+        <input type="checkbox" checked={todo.done ? true : null} onChange={() => toggleTodo(todo.id)} />
         <p className={todo.done ? styles['todo-item-done'] : null}>{todo.text}</p>
       </div>
       <button className={styles['todo-item__delete']} onClick={() => removeTodo(todo.id)}>
