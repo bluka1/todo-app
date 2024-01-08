@@ -31,6 +31,10 @@ export default function App() {
     setTodos(newTodosState);
   };
 
+  const clearCompletedTodos = () => {
+    setTodos((prevTodos) => prevTodos.filter((todo) => !todo.done));
+  };
+
   const todosToShow = () => {
     if (visibility === VISIBILITY_TYPES.ACTIVE) return todos.filter((todo) => !todo.done);
     if (visibility === VISIBILITY_TYPES.COMPLETED) return todos.filter((todo) => todo.done);
@@ -45,6 +49,13 @@ export default function App() {
         <AddTodoForm addNewTodo={handleAddNewTodo} />
         <TodoList todos={todosToShow()} removeTodo={handleRemoveTodo} toggleTodo={handleToggleTodo} />
       </div>
+      {todosToShow().length > 0 && visibility !== VISIBILITY_TYPES.ACTIVE && (
+        <div className={styles['clear-completed-button-wrapper']}>
+          <button className={styles['clear-completed-button']} onClick={clearCompletedTodos}>
+            Clear Completed
+          </button>
+        </div>
+      )}
     </div>
   );
 }
