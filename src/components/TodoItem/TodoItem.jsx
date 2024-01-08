@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import XIconSrc from '../../images/x.svg'
-import styles from './TodoItem.module.css'
+import React from 'react';
+import PropTypes from 'prop-types';
+import XIconSrc from '../../images/x.svg';
+import styles from './TodoItem.module.css';
 
 const TodoItem = ({ todo, removeTodo, toggleTodo }) => {
   return (
@@ -14,13 +14,13 @@ const TodoItem = ({ todo, removeTodo, toggleTodo }) => {
         <img src={XIconSrc} alt="" />
       </button>
     </li>
-  )
-}
+  );
+};
 
 TodoItem.propTypes = {
   todo: PropTypes.object,
   removeTodo: PropTypes.func,
   toggleTodo: PropTypes.func,
-}
+};
 
-export default TodoItem
+export default TodoItem;

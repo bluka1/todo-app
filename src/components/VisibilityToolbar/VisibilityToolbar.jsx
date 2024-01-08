@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types'
-import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap'
-import { VISIBILITY_TYPES } from '../../utils/visibilityTypes'
-import styles from './VisibilityToolbar.module.css'
+import PropTypes from 'prop-types';
+import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
+import { VISIBILITY_TYPES } from '../../utils/visibilityTypes';
+import styles from './VisibilityToolbar.module.css';
 
-const { ALL, ACTIVE, COMPLETED } = VISIBILITY_TYPES
+const { ALL, ACTIVE, COMPLETED } = VISIBILITY_TYPES;
 
 const VisibilityToolbar = (props) => {
   return (
@@ -23,9 +23,9 @@ const VisibilityToolbar = (props) => {
         Completed
       </ToggleButton>
     </ToggleButtonGroup>
-  )
-}
+  );
+};
 
-VisibilityToolbar.propTypes = {}
+VisibilityToolbar.propTypes = {};
 
-export default VisibilityToolbar
+export default VisibilityToolbar;
