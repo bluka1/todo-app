@@ -3,49 +3,49 @@
 *,
 *::after,
 *::before {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
-	background-color: whitesmoke;
-	color: darkgray;
-	font-family: sans-serif;
-	font-size: 1rem;
+  background-color: whitesmoke;
+  color: darkgray;
+  font-family: sans-serif;
+  font-size: 1rem;
 }
 
 :root {
-	--black-color: #0f0f0f;
-	--hover-color: #9f9f9f;
-	--main-text-color: #7f7f7f;
-	--outline-color: #2a7a8a;
-	--text-color: #1f1f1f;
-	--toggle-button-border-color: #1f1f1f;
-	--white-color: #ffffff;
+  --black-color: #0f0f0f;
+  --hover-color: #9f9f9f;
+  --main-text-color: #7f7f7f;
+  --outline-color: #2a7a8a;
+  --text-color: #1f1f1f;
+  --toggle-button-border-color: #1f1f1f;
+  --white-color: #ffffff;
 }
 
 input[type='radio'] {
-	appearance: none;
+  appearance: none;
 }
 
 .toggle-button {
-	color: var(--text-color);
-	display: inline-block;
-	padding: 0.25rem 0.5rem;
+  color: var(--text-color);
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
 }
 
 .toggle-button:hover {
-	background-color: var(--hover-color);
-	cursor: pointer;
+  background-color: var(--hover-color);
+  cursor: pointer;
 }
 
 .toggle-button-active {
-	background-color: var(--black-color);
-	color: var(--white-color);
+  background-color: var(--black-color);
+  color: var(--white-color);
 }
 
 .toggle-button:nth-of-type(1),
 .toggle-button:nth-of-type(2) {
-	border-right: 1px solid var(--toggle-button-border-color);
+  border-right: 1px solid var(--toggle-button-border-color);
 }
