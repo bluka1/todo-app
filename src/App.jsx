@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, Route, Routes } from 'react-router';
 
 import { Title, VisibilityToolbar, AddTodoForm, TodoList } from './components';
 import { addTodo, clearCompleted, removeTodo, toggleTodo } from './store/todoSlice';
@@ -9,73 +9,69 @@ import { VISIBILITY_TYPES } from './utils/visibilityTypes';
 import styles from './App.module.css';
 
 export default function App() {
-  //const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) || []);
-  const [visibility, setVisibility] = useState(VISIBILITY_TYPES.ALL);
   const todos = useSelector((state) => state.todos.todos);
   const dispatch = useDispatch();
 
-  const handleSetVisibility = (visibilityValue) => {
-    setVisibility(visibilityValue);
-  };
-
   const handleAddNewTodo = (text) => {
     const newTodo = new Todo(text);
-    /*
-    setTodos((prevState) => {
-      const newState = [...prevState, newTodo];
-      localStorage.setItem('todos', JSON.stringify(newState));
-      return newState;
-    });
-    */
     dispatch(addTodo(JSON.stringify(newTodo)));
   };
 
   const handleRemoveTodo = (id) => {
-    /*const newTodos = todos.filter((todo) => todo.id !== id);
-    setTodos(newTodos);
-    localStorage.setItem('todos', JSON.stringify(newTodos));*/
     dispatch(removeTodo(id));
   };
 
   const handleToggleTodo = (id) => {
-    /*const newTodosState = [...todos];
-    const todo = newTodosState.find((todo) => todo.id === id);
-    todo.done = !todo.done;
-    setTodos(newTodosState);
-    localStorage.setItem('todos', JSON.stringify(newTodosState));*/
     dispatch(toggleTodo(id));
   };
 
   const clearCompletedTodos = () => {
-    /*setTodos((prevTodos) => {
-      const newTodos = prevTodos.filter((todo) => !todo.done);
-      localStorage.setItem('todos', JSON.stringify(newTodos));
-      return newTodos;
-    });*/
     dispatch(clearCompleted());
   };
 
-  const todosToShow = () => {
+  const todosToShow = (visibility) => {
     if (visibility === VISIBILITY_TYPES.ACTIVE) return todos.filter((todo) => !todo.done);
     if (visibility === VISIBILITY_TYPES.COMPLETED) return todos.filter((todo) => todo.done);
     return todos;
   };
 
+  const elementToShow = (todos, visibilityType) => {
+    return (
+      <>
+        <TodoList todos={todos} removeTodo={handleRemoveTodo} toggleTodo={handleToggleTodo} />
+        {todos.length > 0 &&
+        (visibilityType === VISIBILITY_TYPES.ALL || visibilityType === VISIBILITY_TYPES.COMPLETED) ? (
+          <div className={styles['clear-completed-button-wrapper']}>
+            <button className={styles['clear-completed-button']} onClick={clearCompletedTodos}>
+              Clear Completed
+            </button>
+          </div>
+        ) : null}
+      </>
+    );
+  };
+
   return (
     <div>
       <Title text="My tasks" />
-      <VisibilityToolbar visibility={visibility} handleSetVisibility={handleSetVisibility} />
+      <VisibilityToolbar />
       <div className={styles['form-and-list-wrapper']}>
         <AddTodoForm addNewTodo={handleAddNewTodo} />
-        <TodoList todos={todosToShow()} removeTodo={handleRemoveTodo} toggleTodo={handleToggleTodo} />
+
+        <Routes>
+          <Route path="/" element={elementToShow(todosToShow(), VISIBILITY_TYPES.ALL)} />
+          <Route path="/all" element={elementToShow(todosToShow(), VISIBILITY_TYPES.ALL)} />
+          <Route
+            path="/active"
+            element={elementToShow(todosToShow(VISIBILITY_TYPES.ACTIVE), VISIBILITY_TYPES.ACTIVE)}
+          />
+          <Route
+            path="/completed"
+            element={elementToShow(todosToShow(VISIBILITY_TYPES.COMPLETED), VISIBILITY_TYPES.COMPLETED)}
+          />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
       </div>
-      {todosToShow()?.length > 0 && visibility !== VISIBILITY_TYPES.ACTIVE && (
-        <div className={styles['clear-completed-button-wrapper']}>
-          <button className={styles['clear-completed-button']} onClick={clearCompletedTodos}>
-            Clear Completed
-          </button>
-        </div>
-      )}
     </div>
   );
 }

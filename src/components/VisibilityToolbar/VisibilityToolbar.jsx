@@ -1,60 +1,24 @@
-import PropTypes from 'prop-types';
-import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
-import { VISIBILITY_TYPES } from '../../utils/visibilityTypes';
+import { NavLink } from 'react-router-dom';
 import styles from './VisibilityToolbar.module.css';
 
-const { ALL, ACTIVE, COMPLETED } = VISIBILITY_TYPES;
-
-const VisibilityToolbar = ({ visibility, handleSetVisibility }) => {
-  const getButtonStyle = (visibilityValue, value) => {
-    if (visibilityValue === value) return styles['activeButton'];
-    else return null;
-  };
-
+const VisibilityToolbar = () => {
+  const linkStyle = 'navlink ';
+  const activeLinkStyle = linkStyle + 'navlink-active';
   return (
-    <ToggleButtonGroup
-      type="radio"
-      name="visibilityOptions"
-      defaultValue={ALL}
-      className={styles['toggle-button-group']}
-    >
-      <ToggleButton
-        value={ALL}
-        size="sm"
-        className={`toggle-button ${getButtonStyle(visibility, ALL)}`}
-        onClick={() => {
-          handleSetVisibility(ALL);
-        }}
-      >
-        All
-      </ToggleButton>
-      <ToggleButton
-        value={ACTIVE}
-        size="sm"
-        className={`toggle-button ${getButtonStyle(visibility, ACTIVE)}`}
-        onClick={() => {
-          handleSetVisibility(ACTIVE);
-        }}
-      >
-        Active
-      </ToggleButton>
-      <ToggleButton
-        value={COMPLETED}
-        size="sm"
-        className={`toggle-button ${getButtonStyle(visibility, COMPLETED)}`}
-        onClick={() => {
-          handleSetVisibility(COMPLETED);
-        }}
-      >
-        Completed
-      </ToggleButton>
-    </ToggleButtonGroup>
+    <div className={styles['navlink-group']}>
+      <NavLink to="/" className={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}>
+        ALL
+      </NavLink>
+      <NavLink to="/active" className={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}>
+        ACTIVE
+      </NavLink>
+      <NavLink to="/completed" className={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}>
+        COMPLETED
+      </NavLink>
+    </div>
   );
 };
 
-VisibilityToolbar.propTypes = {
-  visibility: PropTypes.string,
-  handleSetVisibility: PropTypes.func,
-};
+VisibilityToolbar.propTypes = {};
 
 export default VisibilityToolbar;
